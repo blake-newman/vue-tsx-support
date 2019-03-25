@@ -1,6 +1,6 @@
 import * as dom from "./dom";
 import Vue, { VNode, VNodeData, VNodeChildrenArrayContents } from "vue";
-import { ScopedSlotChildren } from "vue/types/vnode";
+import { ScopedSlotReturnValue, ScopedSlotChildren } from "vue/types/vnode"
 
 declare global {
   namespace VueTsx {
@@ -15,7 +15,8 @@ declare global {
 
 export type StringKeyOf<T> = Extract<keyof T, string>;
 
-type ScopedSlot<P = any> = (props: P) => ScopedSlotChildren;
+export type ScopedSlot<P = any> = (props: P) => ScopedSlotReturnValue
+export type ScopedSlotNormalized<P = any> = (props: P) => ScopedSlotChildren
 
 export type KnownAttrs = Pick<
   VNodeData,
@@ -30,6 +31,12 @@ export type ScopedSlots<T> = {
   [K in StringKeyOf<T>]: ScopedSlot<T[K]> | undefined
 } & {
   [name: string]: ScopedSlot | undefined;
+};
+
+export type ScopedSlotsNormalized<T> = {
+  [K in StringKeyOf<T>]: ScopedSlotNormalized<T[K]> | undefined
+} & {
+  [name: string]: ScopedSlotNormalized | undefined;
 };
 
 export type EventHandlers<E> = {
