@@ -1,6 +1,6 @@
 import Vue, { ComponentOptions, FunctionalComponentOptions, VueConstructor } from "vue";
 import { RecordPropsDefinition, ThisTypedComponentOptionsWithRecordProps as ThisTypedComponentOptions } from "vue/types/options";
-import { TsxComponentAttrs, ScopedSlots, StringKeyOf } from "../types/base";
+import { TsxComponentAttrs, StringKeyOf, ScopedSlotsNormalized } from "../types/base";
 export { TsxComponentAttrs, ScopedSlots } from "../types/base";
 import { EventsNativeOn, AllHTMLAttributes } from "../types/dom";
 export { EventsNativeOn, AllHTMLAttributes } from "../types/dom";
@@ -10,7 +10,7 @@ export declare type TsxComponentInstance<V extends Vue, Props, EventsWithOn, Sco
 export declare type TsxComponent<V extends Vue, Props = {}, EventsWithOn = {}, ScopedSlotArgs = {}, AdditionalThisAttrs = {}> = VueConstructor<TsxComponentInstance<V, Props, EventsWithOn, ScopedSlotArgs> & AdditionalThisAttrs>;
 export declare class Component<Props, EventsWithOn = {}, ScopedSlotArgs = {}> extends Vue {
     _tsxattrs: TsxComponentAttrs<Props, EventsWithOn, ScopedSlotArgs>;
-    $scopedSlots: ScopedSlots<ScopedSlotArgs>;
+    $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs>;
 }
 /**
  * Create component from component options (Compatible with Vue.extend)
@@ -54,17 +54,17 @@ export interface ComponentFactory<BaseProps, EventsWithOn, ScopedSlotArgs, Addit
     }, requiredPropsNames?: RequiredProps[]): TsxComponent<Super, PropsForOutside<Props, RequiredProps> & BaseProps, EventsWithOn, ScopedSlotArgs, Data & Methods & Computed & Props>;
     mixin<Data, Methods, Computed, Props>(mixinObject: ThisTypedComponentOptions<Vue, Data, Methods, Computed, Props>): ComponentFactory<BaseProps & Props, EventsWithOn, ScopedSlotArgs, AdditionalThisAttrs & Data & Methods & Computed & Props, Super>;
     mixin<VC extends typeof Vue>(mixinObject: VC): ComponentFactory<BaseProps, EventsWithOn, ScopedSlotArgs, AdditionalThisAttrs & {
-        $scopedSlots: ScopedSlots<ScopedSlotArgs>;
+        $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs>;
     }, InstanceType<VC> & Super>;
 }
 export interface ExtendableComponentFactory<BaseProps, EventsWithOn, ScopedSlotArgs, AdditionalThisAttrs, Super extends Vue> extends ComponentFactory<BaseProps, EventsWithOn, ScopedSlotArgs, AdditionalThisAttrs, Super> {
     extendFrom<VC extends typeof Vue>(componentType: VC): ComponentFactory<BaseProps, EventsWithOn, ScopedSlotArgs, AdditionalThisAttrs & {
-        $scopedSlots: ScopedSlots<ScopedSlotArgs>;
+        $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs>;
     }, InstanceType<VC>>;
 }
 export declare const componentFactory: ExtendableComponentFactory<{}, {}, {}, {}, Vue>;
 export declare function componentFactoryOf<EventsWithOn = {}, ScopedSlotArgs = {}>(): ComponentFactory<{}, EventsWithOn, ScopedSlotArgs, {
-    $scopedSlots: ScopedSlots<ScopedSlotArgs>;
+    $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs>;
 }, Vue>;
 /**
  * Shorthand of `componentFactory.create`
@@ -84,5 +84,5 @@ export declare const component: {
     } & Vue & Data & Methods & Computed & Props>;
 };
 export declare const extendFrom: <VC extends VueConstructor<Vue>>(componentType: VC) => ComponentFactory<{}, {}, {}, {
-    $scopedSlots: ScopedSlots<{}>;
+    $scopedSlots: ScopedSlotsNormalized<{}>;
 }, InstanceType<VC>>;

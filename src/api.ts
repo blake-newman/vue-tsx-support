@@ -8,7 +8,12 @@ import {
   ThisTypedComponentOptionsWithRecordProps as ThisTypedComponentOptions
 } from "vue/types/options";
 
-import { TsxComponentAttrs, ScopedSlots, StringKeyOf, ScopedSlotsNormalized } from "../types/base";
+import {
+  TsxComponentAttrs,
+  ScopedSlots,
+  StringKeyOf,
+  ScopedSlotsNormalized
+} from "../types/base";
 export { TsxComponentAttrs, ScopedSlots } from "../types/base";
 import { EventsNativeOn, AllHTMLAttributes } from "../types/dom";
 import { NormalizedScopedSlot } from "vue/types/vnode";
@@ -192,7 +197,9 @@ export interface ComponentFactory<
     BaseProps,
     EventsWithOn,
     ScopedSlotArgs,
-    AdditionalThisAttrs & { $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs> },
+    AdditionalThisAttrs & {
+      $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs>;
+    },
     InstanceType<VC> & Super
   >;
 }
@@ -217,7 +224,9 @@ export interface ExtendableComponentFactory<
     BaseProps,
     EventsWithOn,
     ScopedSlotArgs,
-    AdditionalThisAttrs & { $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs> },
+    AdditionalThisAttrs & {
+      $scopedSlots: ScopedSlotsNormalized<ScopedSlotArgs>;
+    },
     InstanceType<VC>
   >;
 }
